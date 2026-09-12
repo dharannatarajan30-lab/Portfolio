@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dharan Natarajan | Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans (Modern tech) & Playfair Display (Premium Professional Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a', /* Slate 900 */
+                        secondary: '#38bdf8', /* Sky 400 */
+                        accent: '#818cf8', /* Indigo 400 */
+                        darkbg: '#0b0f19', /* Deep Navy */
+                        cardbg: '#1e293b', /* Slate 800 */
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* standard fade-in for home/contact */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Staggered Word Drop Animation (About Heading) */
+        @keyframes wordDrop {
+            0% {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-word-drop {
+            display: inline-block;
+            opacity: 0;
+            animation: wordDrop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Staggered Cards Slide Up (About Page Cards) */
+        @keyframes cardFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-card-fade-up {
+            opacity: 0;
+            animation: cardFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Travel from Left to Right (Left Projects) */
+        @keyframes slideFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .animate-slide-left {
+            animation: slideFromLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Travel from Right to Left (Right Projects) */
+        @keyframes slideFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .animate-slide-right {
+            animation: slideFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Fade to Normal (Education page opacity fade with no movement) */
+        @keyframes fadeToNormal {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .animate-fade-normal {
+            animation: fadeToNormal 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-primary/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full border-2 border-secondary overflow-hidden bg-slate-800">
+                    <img src="data analyst.png" alt="Dharan Natarajan" class="w-full h-full object-cover object-top" onerror="this.src='https://placehold.co/150'">
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-white">Dharan Natarajan</h1>
+                    <p class="text-xs text-secondary font-mono">Data Analyst & Developer</p>
+                </div>
+            </div>
+            
+            <!-- Tab Navigation Menu -->
+            <nav class="flex flex-wrap justify-center gap-1 sm:gap-2">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-secondary bg-slate-800/80 border border-slate-700">Home</button>
+                <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-slate-400 hover:text-white hover:bg-slate-800">About & Skills</button>
+                <button onclick="switchTab('projects')" id="nav-projects" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-slate-400 hover:text-white hover:bg-slate-800">Projects</button>
+                <button onclick="switchTab('education')" id="nav-education" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-slate-400 hover:text-white hover:bg-slate-800">Education</button>
+                <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-slate-400 hover:text-white hover:bg-slate-800">Contact</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-6xl mx-auto w-full px-4 py-8">
+
+        <!-- ==================== HOME PAGE ==================== -->
+        <section id="page-home" class="page-section animate-fade-in relative min-h-[580px] rounded-3xl overflow-hidden bg-cover bg-center md:bg-left border border-slate-850 shadow-2xl flex items-center" style="background-image: url('background.png');">
+            
+            <!-- Dark responsive overlays to protect text contrast on narrow screens -->
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 to-slate-950/95 md:from-slate-950/40 md:via-slate-950/5 md:to-slate-950/85"></div>
+            
+            <div class="relative z-10 w-full px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                
+                <!-- Intro Text Section shifted further right (column 8) to completely clear the image elements -->
+                <div class="md:col-start-8 md:col-span-5 space-y-6 text-center md:text-left bg-slate-950/80 md:bg-transparent p-6 md:p-0 rounded-2xl border border-slate-800/40 md:border-none backdrop-blur-md md:backdrop-blur-none">
+                    <div class="inline-block px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-secondary text-xs font-mono font-semibold">
+                        Available for Opportunities
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                        Hi, I'm <span id="typewriter-name" class="font-serif italic font-bold text-4xl md:text-5xl block text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent pt-1 pb-2">Dharan Natarajan</span>
+                    </h2>
+                    <h3 class="text-lg md:text-xl font-semibold text-slate-300">
+                        Developer & Data Analyst
+                    </h3>
+                    <p class="text-slate-400 text-xs md:text-sm leading-relaxed">
+                        I specialize in translating business requirements into data definitions, logical models, and scalable analytical pipelines. Combining data modeling, statistical algorithms, and automated workflows, I deliver insights that drive operational decisions.
+                    </p>
+                    
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+                        <button onclick="switchTab('projects')" class="px-5 py-2.5 bg-secondary text-primary font-bold rounded-lg hover:bg-sky-300 transition shadow-lg shadow-secondary/20 flex items-center gap-2 text-xs">
+                            Explore Projects <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        <button onclick="switchTab('contact')" class="px-5 py-2.5 bg-slate-800 border border-slate-700 text-white font-semibold rounded-lg hover:bg-slate-700 transition flex items-center gap-2 text-xs">
+                            Get in Touch <i class="fa-regular fa-envelope"></i>
+                        </button>
+                    </div>
+
+                    <!-- Social Links: Styled with a protective high-contrast dark box for perfect plant layout separation -->
+                    <div class="flex justify-center md:justify-start pt-2">
+                        <div class="inline-flex items-center gap-4 px-3.5 py-1.5 bg-slate-950/95 border border-slate-800/80 rounded-lg shadow-lg backdrop-blur-sm text-slate-300">
+                            <a href="https://linkedin.com/in/dharan-natarajan-2658b8388" target="_blank" class="hover:text-secondary transition text-xl leading-none"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="https://github.com/dharannatarajan30-lab" target="_blank" class="hover:text-secondary transition text-xl leading-none"><i class="fa-brands fa-github"></i></a>
+                            <a href="mailto:dharan.natarajan30@gmail.com" class="hover:text-secondary transition text-xl leading-none"><i class="fa-regular fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ABOUT & SKILLS PAGE ==================== -->
+        <section id="page-about" class="page-section hidden space-y-10 pt-0 pb-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-3xl font-bold text-white">About & Technical Expertise</h2>
+                <p class="text-sm text-slate-400 font-mono mt-1">A bridge between technical architectures and data strategy.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Professional Bio Card (Fades up after words finish dropping) -->
+                <div class="lg:col-span-1 bg-cardbg p-6 rounded-xl border border-slate-800 space-y-4 animate-card-fade-up" style="animation-delay: 0.15s;">
+                    <h3 class="text-lg font-bold text-white border-b border-slate-700 pb-2">Profile Overview</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Armed with a rigorous academic foundation in chemistry, I transition structured analytical frameworks into complex digital systems. My experience covers everything from data quality remediation and automated ETL pipelines to building predictive models and advanced business dashboards.
+                    </p>
+                    <div class="space-y-2 pt-2">
+                        <div class="flex items-center gap-3 text-xs font-mono text-slate-400">
+                            <i class="fa-solid fa-location-dot text-secondary"></i> Tamil Nadu, India
+                        </div>
+                        <div class="flex items-center gap-3 text-xs font-mono text-slate-400">
+                            <i class="fa-solid fa-graduation-cap text-secondary"></i> B.Sc. Chemistry Graduate
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Grid (Fades up staggeredly) -->
+                <div class="lg:col-span-2 space-y-6">
+                    <h3 class="text-xl font-bold text-white">Core Skills</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <!-- SQL & Engineering -->
+                        <div class="bg-cardbg p-5 rounded-xl border border-slate-800 space-y-3 animate-card-fade-up" style="animation-delay: 0.25s;">
+                            <div class="flex items-center gap-3 text-secondary">
+                                <i class="fa-solid fa-database text-xl"></i>
+                                <h4 class="font-bold text-white">SQL & Engineering</h4>
+                            </div>
+                            <p class="text-xs text-slate-400">MySQL, schemas, data validation, CTEs, complex joins, and ETL optimization.</p>
+                        </div>
+
+                        <!-- Data Analytics & BI -->
+                        <div class="bg-cardbg p-5 rounded-xl border border-slate-800 space-y-3 animate-card-fade-up" style="animation-delay: 0.35s;">
+                            <div class="flex items-center gap-3 text-accent">
+                                <i class="fa-solid fa-chart-pie text-xl"></i>
+                                <h4 class="font-bold text-white">Data Visualization</h4>
+                            </div>
+                            <p class="text-xs text-slate-400">Power BI (DAX, measures, slicers), Tableau, Looker, Streamlit, and Plotly.</p>
+                        </div>
+
+                        <!-- Programming & AI -->
+                        <div class="bg-cardbg p-5 rounded-xl border border-slate-800 space-y-3 animate-card-fade-up" style="animation-delay: 0.45s;">
+                            <div class="flex items-center gap-3 text-emerald-400">
+                                <i class="fa-brands fa-python text-xl"></i>
+                                <h4 class="font-bold text-white">Python & AI/ML</h4>
+                            </div>
+                            <p class="text-xs text-slate-400">Pandas, NumPy, Scikit-Learn, predictive modeling, API integration, and GenAI automation.</p>
+                        </div>
+
+                        <!-- Business Governance -->
+                        <div class="bg-cardbg p-5 rounded-xl border border-slate-800 space-y-3 animate-card-fade-up" style="animation-delay: 0.55s;">
+                            <div class="flex items-center gap-3 text-amber-400">
+                                <i class="fa-solid fa-shield-halved text-xl"></i>
+                                <h4 class="font-bold text-white">Governance & Modeling</h4>
+                            </div>
+                            <p class="text-xs text-slate-400">Data lineage/root cause analysis, data dictionary standards, and KPI tracking.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-end pt-4">
+                <button onclick="switchTab('projects')" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm font-semibold rounded-lg flex items-center gap-2 transition">
+                    Next Page: Projects <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== PROJECTS PAGE ==================== -->
+        <section id="page-projects" class="page-section hidden space-y-10 pt-0 pb-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-3xl font-bold text-white">Featured Projects</h2>
+                <p class="text-sm text-slate-400 font-mono mt-1">A portfolio of production-style analytical and developer applications.</p>
+            </div>
+
+            <!-- Projects Grid: alternating cards left-to-right & right-to-left -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-x-hidden">
+
+                <!-- Flight Fare Prediction (LEFT - Travels Left to Right) -->
+                <div class="bg-cardbg rounded-xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-slate-700 transition animate-slide-left">
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] uppercase tracking-wider font-mono px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-secondary">
+                                Python | ML | Power BI
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Flight Fare Prediction & Pricing Analytics</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Cleaned and engineered a 10,682-row booking dataset. Constructed a predictive pricing ML model while building a 4-page, 25-visual dashboard to highlight fare dependencies and segment metrics.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-1.5 list-disc pl-4">
+                            <li>Resolved missing records, parsing dates into structured variables.</li>
+                            <li>Identified stop count as a dominant predictor, with averages scaling 2.5x higher for dual stops.</li>
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-900 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-tags"></i> Pricing Strategy</span>
+                        <a href="https://github.com/dharannatarajan30-lab" target="_blank" class="text-secondary hover:underline text-sm font-medium flex items-center gap-1.5">View Repo <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- E-Commerce Sales Forecasting (RIGHT - Travels Right to Left) -->
+                <div class="bg-cardbg rounded-xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-slate-700 transition animate-slide-right">
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] uppercase tracking-wider font-mono px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-accent">
+                                SQL | Scikit-Learn | Power BI
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">E-Commerce Forecasting & Returns Simulator</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Engineered relational database schema workflows, structuring an end-to-end Python ML model forecasting seasonal sales along with scenario simulations.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-1.5 list-disc pl-4">
+                            <li>Discovered link between average review metrics (~3.04/5) and a 33% return rate.</li>
+                            <li>Designed a custom Power BI return-reduction parameter slicer to dynamic-model margins.</li>
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-900 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-cart-shopping"></i> Retail Logistics</span>
+                        <a href="https://github.com/dharannatarajan30-lab" target="_blank" class="text-accent hover:underline text-sm font-medium flex items-center gap-1.5">View Repo <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- KFC Cunningham Road (LEFT - Travels Left to Right) -->
+                <div class="bg-cardbg rounded-xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-slate-700 transition animate-slide-left">
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] uppercase tracking-wider font-mono px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-emerald-400">
+                                API Pipeline | Streamlit | Plotly
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">KFC Cunningham Road Menu Analytics</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Built an end-to-end Python pipeline to query and parse Swiggy nested JSON menu API endpoints. Cleansed data into derived datasets highlighting classification structures.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-1.5 list-disc pl-4">
+                            <li>Delivered dynamic interactive visualizations using Plotly and Streamlit.</li>
+                            <li>Equipped non-technical leads with self-serve analytical views of product mixes.</li>
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-900 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-utensils"></i> Food Tech</span>
+                        <a href="https://github.com/dharannatarajan30-lab" target="_blank" class="text-emerald-400 hover:underline text-sm font-medium flex items-center gap-1.5">View Repo <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Zepto Quick-Commerce (RIGHT - Travels Right to Left) -->
+                <div class="bg-cardbg rounded-xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-slate-700 transition animate-slide-right">
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] uppercase tracking-wider font-mono px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-amber-400">
+                                Advanced SQL | Operations
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Zepto Quick-Commerce Sales Analytics</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Processed and aggregated over 50,000 transaction records targeting performance vectors: geographic slot layouts, delivery window constraints, and categorical patterns.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-1.5 list-disc pl-4">
+                            <li>Authored 20+ advanced queries executing window functions, CTE expressions, and Group rollups.</li>
+                            <li>Automated operational reporting metrics, reducing manual update routines by ~60%.</li>
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-900 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-bolt"></i> Operations</span>
+                        <a href="https://github.com/dharannatarajan30-lab" target="_blank" class="text-amber-400 hover:underline text-sm font-medium flex items-center gap-1.5">View Repo <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex justify-end pt-4">
+                <button onclick="switchTab('education')" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm font-semibold rounded-lg flex items-center gap-2 transition">
+                    Next Page: Education <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== EDUCATION PAGE ==================== -->
+        <section id="page-education" class="page-section hidden space-y-10 pt-0 pb-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-3xl font-bold text-white">Education & Credentials</h2>
+                <p class="text-sm text-slate-400 font-mono mt-1">My academic path and industry-focused professional certifications.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Academic Journey -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-secondary"></i> Education
+                    </h3>
+                    <div class="space-y-4 border-l-2 border-slate-800 pl-4 ml-2">
+                        
+                        <!-- University -->
+                        <div class="relative space-y-1">
+                            <div class="absolute -left-[22px] top-1.5 w-2 h-2 rounded-full bg-secondary"></div>
+                            <span class="text-[10px] font-mono text-secondary px-2 py-0.5 bg-slate-800/80 border border-slate-700 rounded-md">2022 - 2026</span>
+                            <h4 class="text-lg font-bold text-white">Bachelor of Science (B.Sc.) in Chemistry</h4>
+                            <p class="text-sm text-slate-400">Bishop Heber College</p>
+                            <p class="text-xs text-slate-500">Academic Score: 75.3%</p>
+                        </div>
+
+                        <!-- Secondary XII -->
+                        <div class="relative space-y-1">
+                            <div class="absolute -left-[22px] top-1.5 w-2 h-2 rounded-full bg-slate-700"></div>
+                            <span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 bg-slate-800/80 border border-slate-700 rounded-md">2018 - 2020</span>
+                            <h4 class="text-base font-semibold text-white">Higher Secondary (Class XII)</h4>
+                            <p class="text-sm text-slate-400">Surabi Matric Higher Secondary School</p>
+                            <p class="text-xs text-slate-500">Academic Score: 65.6%</p>
+                        </div>
+
+                        <!-- Class X -->
+                        <div class="relative space-y-1">
+                            <div class="absolute -left-[22px] top-1.5 w-2 h-2 rounded-full bg-slate-700"></div>
+                            <span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 bg-slate-800/80 border border-slate-700 rounded-md">2018</span>
+                            <h4 class="text-base font-semibold text-white">SSLC (Class X)</h4>
+                            <p class="text-sm text-slate-400">Surabi Matric Higher Secondary School</p>
+                            <p class="text-xs text-slate-500">Academic Score: 85.0%</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-certificate text-accent"></i> Certifications
+                    </h3>
+                    <div class="grid grid-cols-1 gap-3">
+
+                        <!-- Infoem software solution  -->
+                        <div class="bg-cardbg p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Infoem Software Solution</h4>
+                                <p class="text-xs text-slate-400">Data Analyst</p>
+                            </div>
+                            <span class="text-[10px] font-mono bg-slate-900 border border-slate-800 px-2 py-1 rounded text-secondary">June-2/2026 To September-2/2026</span>
+                        </div>
+                        
+                        <!-- Tata Certification -->
+                        <div class="bg-cardbg p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Tata Group</h4>
+                                <p class="text-xs text-slate-400">GenAI Powered Data Analytics Job Simulation</p>
+                            </div>
+                            <span class="text-[10px] font-mono bg-slate-900 border border-slate-800 px-2 py-1 rounded text-secondary">June 2026</span>
+                        </div>
+
+                        <!-- Deloitte Certification -->
+                        <div class="bg-cardbg p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Deloitte Australia</h4>
+                                <p class="text-xs text-slate-400">Data Analytics Job Simulation</p>
+                            </div>
+                            <span class="text-[10px] font-mono bg-slate-900 border border-slate-800 px-2 py-1 rounded text-secondary">June 2026</span>
+                        </div>
+
+                        <!-- Microsoft Certification -->
+                        <div class="bg-cardbg p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Microsoft Corporation</h4>
+                                <p class="text-xs text-slate-400">Fundamentals of Microsoft Tools (Office/G-Suite)</p>
+                            </div>
+                            <span class="text-[10px] font-mono bg-slate-900 border border-slate-800 px-2 py-1 rounded text-slate-500">Credential</span>
+                        </div>
+
+                        <!-- Mode Analytics SQL -->
+                        <div class="bg-cardbg p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Mode Analytics & HackerRank</h4>
+                                <p class="text-xs text-slate-400">SQL for Data Analysis</p>
+                            </div>
+                            <span class="text-[10px] font-mono bg-slate-900 border border-slate-800 px-2 py-1 rounded text-slate-500">Credential</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-4">
+                <button onclick="switchTab('contact')" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm font-semibold rounded-lg flex items-center gap-2 transition">
+                    Next Page: Contact <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== CONTACT PAGE ==================== -->
+        <section id="page-contact" class="page-section hidden space-y-10 pt-0 pb-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-3xl font-bold text-white">Let's Connect</h2>
+                <p class="text-sm text-slate-400 font-mono mt-1">Reach out for business collaborations, hiring queries, or project development.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <!-- Info Cards -->
+                <div class="md:col-span-5 space-y-4">
+                    <h3 class="text-xl font-bold text-white">Contact Channels</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        I am open to discuss professional data analytics, database modeling, and developer opportunities. Let's arrange a time to review project plans together.
+                    </p>
+                    
+                    <div class="space-y-3 pt-4">
+                        <div class="flex items-center gap-4 bg-cardbg p-4 rounded-lg border border-slate-800">
+                            <div class="w-10 h-10 rounded-full bg-slate-900 text-secondary flex items-center justify-center text-lg">
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase text-slate-500 font-mono">Email Address</p>
+                                <a href="mailto:dharan.natarajan30@gmail.com" class="text-sm font-bold text-white hover:text-secondary transition">dharan.natarajan30@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 bg-cardbg p-4 rounded-lg border border-slate-800">
+                            <div class="w-10 h-10 rounded-full bg-slate-900 text-secondary flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase text-slate-500 font-mono">Mobile Contact</p>
+                                <a href="tel:+919384913707" class="text-sm font-bold text-white hover:text-secondary transition">+91 93849 13707</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 bg-cardbg p-4 rounded-lg border border-slate-800">
+                            <div class="w-10 h-10 rounded-full bg-slate-900 text-secondary flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase text-slate-500 font-mono">Location</p>
+                                <p class="text-sm font-bold text-white">Tamil Nadu, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simple HTML Mail / Message Form -->
+                <div class="md:col-span-7 bg-cardbg p-6 rounded-xl border border-slate-800">
+                    <form action="mailto:dharan.natarajan30@gmail.com" method="post" enctype="text/plain" class="space-y-4">
+                        <h3 class="text-xl font-bold text-white mb-2">Send an Inquiry</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-xs font-mono text-slate-400">Full Name</label>
+                                <input type="text" name="name" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-secondary transition">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs font-mono text-slate-400">Email Address</label>
+                                <input type="email" name="email" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-secondary transition">
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-xs font-mono text-slate-400">Message Subject</label>
+                            <input type="text" name="subject" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-secondary transition">
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-xs font-mono text-slate-400">Your Message Details</label>
+                            <textarea name="message" rows="4" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-secondary transition resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 bg-secondary text-primary font-bold text-sm rounded-lg hover:bg-sky-300 transition flex items-center justify-center gap-2">
+                            Send Message <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary py-8 border-t border-slate-800 text-center space-y-4 text-xs text-slate-500 font-mono">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 Dharan Natarajan. All Rights Reserved.</p>
+            <div class="flex gap-4">
+                <a href="https://linkedin.com/in/dharan-natarajan-2658b8388" target="_blank" class="hover:text-secondary transition">LinkedIn</a>
+                <span>&middot;</span>
+                <a href="https://github.com/dharannatarajan30-lab" target="_blank" class="hover:text-secondary transition">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Navigation Tab Switcher Logic & Typewriter Effect -->
+    <script>
+        // Typewriter configuration
+        const nameText = "Dharan Natarajan";
+        let typingIdx = 0;
+        let typingTimer = null;
+
+        function typeName() {
+            const target = document.getElementById('typewriter-name');
+            if (!target) return;
+            
+            // Clear any active timer to prevent conflicts
+            if (typingTimer) {
+                clearTimeout(typingTimer);
+            }
+            
+            target.textContent = "";
+            typingIdx = 0;
+            
+            function typeStep() {
+                if (typingIdx < nameText.length) {
+                    target.textContent += nameText.charAt(typingIdx);
+                    typingIdx++;
+                    typingTimer = setTimeout(typeStep, 100); // 100ms interval per character
+                }
+            }
+            typeStep();
+        }
+
+        // Staggered word dropping effect for the About skills header
+        function dropWordsEffect() {
+            const heading = document.querySelector('#page-about h2');
+            const subheading = document.querySelector('#page-about p.font-mono');
+            if (!heading) return;
+
+            // Split and animate heading words
+            if (!heading.dataset.originalText) {
+                heading.dataset.originalText = heading.textContent;
+            }
+            const words = heading.dataset.originalText.split(" ");
+            heading.innerHTML = words.map((word, i) => 
+                `<span class="inline-block animate-word-drop text-white" style="animation-delay: ${i * 0.08}s">${word}</span>`
+            ).join(" ");
+
+            // Split and animate subheading words (following heading)
+            if (subheading) {
+                if (!subheading.dataset.originalText) {
+                    subheading.dataset.originalText = subheading.textContent;
+                }
+                const subWords = subheading.dataset.originalText.split(" ");
+                subheading.innerHTML = subWords.map((word, i) => 
+                    `<span class="inline-block animate-word-drop text-slate-400" style="animation-delay: ${(words.length * 0.08) + (i * 0.04)}s">${word}</span>`
+                ).join(" ");
+            }
+        }
+
+        // Initialize typewriter on initial page load
+        window.addEventListener('DOMContentLoaded', () => {
+            typeName();
+        });
+
+        function switchTab(tabId) {
+            // Hide all tab sections using Tailwind's 'hidden' class to fully release layout space
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('animate-fade-in', 'animate-fade-normal');
+            });
+
+            // Show target section
+            const activeSection = document.getElementById(`page-${tabId}`);
+            if (activeSection) {
+                activeSection.classList.remove('hidden');
+                
+                // Dynamically assign or trigger specified transitions based on the active tab page
+                if (tabId === 'about') {
+                    // Trigger staggered heading word drops
+                    dropWordsEffect();
+
+                    // Re-run floating card staggered entry animations
+                    const animatedCards = activeSection.querySelectorAll('.animate-card-fade-up');
+                    animatedCards.forEach(card => {
+                        card.style.animation = 'none';
+                        card.offsetHeight; // triggers layout reflow to restart animation keyframes
+                        card.style.animation = null;
+                    });
+                } else if (tabId === 'education') {
+                    activeSection.classList.add('animate-fade-normal');
+                } else if (tabId === 'home' || tabId === 'contact') {
+                    activeSection.classList.add('animate-fade-in');
+                } else if (tabId === 'projects') {
+                    // For projects tab, force reset and trigger child keyframe animations 
+                    const leftProjectCards = activeSection.querySelectorAll('.animate-slide-left');
+                    leftProjectCards.forEach(card => {
+                        card.style.animation = 'none';
+                        card.offsetHeight; /* triggers browser layout reflow to restart slide keyframes */
+                        card.style.animation = null;
+                    });
+                    
+                    const rightProjectCards = activeSection.querySelectorAll('.animate-slide-right');
+                    rightProjectCards.forEach(card => {
+                        card.style.animation = 'none';
+                        card.offsetHeight;
+                        card.style.animation = null;
+                    });
+                }
+            }
+
+            // Trigger typing effect again when navigating back to the home page
+            if (tabId === 'home') {
+                typeName();
+            }
+
+            // Reset navigation styling
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.className = 'nav-btn px-3 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-slate-400 hover:text-white hover:bg-slate-800';
+            });
+
+            // Highlight active tab button
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = 'nav-btn px-3 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-secondary bg-slate-800/80 border border-slate-700';
+            }
+
+            // Scroll cleanly to the top of the content container
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
